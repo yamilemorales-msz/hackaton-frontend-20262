@@ -1,0 +1,66 @@
+@import "tailwindcss";
+
+/* Paleta "cartel de Se Busca": pergamino, tinta y rojo lacre */
+@theme {
+  --font-display: "Rye", Georgia, serif;
+  --font-body: "Work Sans", system-ui, sans-serif;
+
+  --color-parchment-50: #fdf9ef;
+  --color-parchment-100: #f7eedb;
+  --color-parchment-200: #eddcb6;
+  --color-parchment-300: #dfc58e;
+  --color-parchment-400: #c9a866;
+
+  --color-ink-900: #2b1d12;
+  --color-ink-700: #4a3424;
+  --color-ink-500: #7a5c40;
+  --color-ink-300: #a88d6f;
+
+  --color-seal-600: #9b2c1f;
+  --color-seal-700: #7d2117;
+
+  --color-sea-600: #1f5f6e;
+  --color-sea-700: #174a56;
+}
+
+html {
+  background-color: var(--color-parchment-100);
+}
+
+body {
+  font-family: var(--font-body);
+  color: var(--color-ink-900);
+  background-color: var(--color-parchment-100);
+  background-image: radial-gradient(circle at 20% 0%, rgb(255 255 255 / 0.55), transparent 55%),
+    radial-gradient(circle at 100% 100%, rgb(201 168 102 / 0.25), transparent 50%);
+  background-attachment: fixed;
+  min-height: 100vh;
+}
+
+/* Piezas reutilizables */
+@layer components {
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-md bg-seal-600 px-4 py-2 text-sm font-semibold text-parchment-50 shadow-sm transition-colors hover:bg-seal-700 disabled:cursor-not-allowed disabled:opacity-60 motion-reduce:transition-none;
+  }
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 rounded-md border-2 border-ink-700 bg-parchment-50 px-4 py-2 text-sm font-semibold text-ink-900 transition-colors hover:bg-parchment-200 disabled:cursor-not-allowed disabled:opacity-50 motion-reduce:transition-none;
+  }
+  .field-label {
+    @apply mb-1 block text-xs font-semibold tracking-wide text-ink-700 uppercase;
+  }
+  .field-input {
+    @apply w-full rounded-md border-2 border-ink-300 bg-parchment-50 px-3 py-2 text-ink-900 placeholder:text-ink-300 focus:border-sea-600 focus:outline-none disabled:opacity-60;
+  }
+  .field-input-error {
+    @apply border-seal-600;
+  }
+  .paper-card {
+    @apply rounded-lg border-2 border-ink-900 bg-parchment-50 shadow-[4px_4px_0_0_var(--color-ink-900)];
+  }
+}
+
+/* Foco visible y consistente para navegación con teclado */
+:focus-visible {
+  outline: 3px solid var(--color-sea-600);
+  outline-offset: 2px;
+}
