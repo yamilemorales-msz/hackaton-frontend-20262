@@ -401,13 +401,13 @@ No entregar backend, dumps, seeds ni credenciales (no suban la contraseña de la
 
 ## Nuestra tripulación
 
-| Integrante | Código      |
-|:-----------|:------------|
-| _Yamile_        | _202510671_ |
-| _Nombre 2_ | _Código 2_  |
-| _Nombre 3_ | _Código 3_  |
+| Integrante | Código |
+|:-----------|:-------|
+| Yamile | 202510671 |
+| _Nombre 2_ | _Código 2_ |
+| _Nombre 3_ | _Código 3_ |
 
-**TEAM_CODE:** _TEAM-037_ (ver `hackathon.json`)
+**TEAM_CODE:** TEAM-037 (ver `hackathon.json`)
 
 ## Cómo ejecutar
 

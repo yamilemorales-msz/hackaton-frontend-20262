@@ -64,3 +64,83 @@ body {
   outline: 3px solid var(--color-sea-600);
   outline-offset: 2px;
 }
+
+/* ===================== CP5 · Poneglyph (scrollytelling) ===================== */
+
+/* Barra de progreso de scroll. Valor por defecto: variable que actualiza el JS de respaldo. */
+.story-scroll-progress {
+  transform: scaleX(var(--scroll-progress, 0));
+}
+
+@keyframes story-progress {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes story-reveal {
+  from {
+    opacity: 0.15;
+    transform: translateY(48px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Todas las animaciones SOLO si el usuario no pidió reducir movimiento. */
+@media (prefers-reduced-motion: no-preference) {
+  /* Cambios de paleta y barco con transición suave */
+  .story-root {
+    transition:
+      background-color 700ms ease,
+      color 700ms ease;
+  }
+  .story-ship {
+    transition: transform 700ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .story-progress-fill {
+    transition: width 500ms ease;
+  }
+
+  /* Con soporte: CSS Scroll-driven Animations */
+  @supports (animation-timeline: scroll()) {
+    .story-scroll-progress {
+      animation: story-progress linear both;
+      animation-timeline: scroll(root block);
+    }
+  }
+  @supports (animation-timeline: view()) {
+    .story-stage-card {
+      animation: story-reveal linear both;
+      animation-timeline: view();
+      animation-range: entry 0% cover 35%;
+    }
+  }
+
+  /* Sin soporte: comportamiento equivalente usando la etapa activa (IntersectionObserver) */
+  @supports not (animation-timeline: view()) {
+    .story-stage-card {
+      transition:
+        opacity 500ms ease,
+        transform 500ms ease;
+    }
+    .story-stage-card[data-active='false'] {
+      opacity: 0.45;
+      transform: translateY(24px) scale(0.98);
+    }
+  }
+}
+
+/* Reduced motion: sin animaciones de View Transitions (navegación instantánea). */
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
+  }
+}

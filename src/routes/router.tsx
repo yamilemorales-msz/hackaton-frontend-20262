@@ -5,7 +5,11 @@ import { LoginPage, RegisterPage } from '../pages/AuthPages';
 import { DashboardPage } from '../pages/DashboardPage';
 import { WantedListPage } from '../pages/WantedListPage';
 import { WantedDetailPage } from '../pages/WantedDetailPage';
-import { GrandLinePlaceholder, NotFoundPage } from '../pages/MiscPages';
+import { NotFoundPage } from '../pages/MiscPages';
+import { NewsFeedPage } from '../pages/NewsFeedPage';
+import { NewsDetailPage } from '../pages/NewsDetailPage';
+import { SagasPage } from '../pages/SagasPage';
+import { SagaStoryPage } from '../pages/SagaStoryPage';
 
 /** Raíz: ScrollRestoration recuerda el scroll de cada entrada del historial (volver del detalle). */
 function RootLayout() {
@@ -37,11 +41,11 @@ export const router = createBrowserRouter([
               { index: true, element: <DashboardPage /> },
               { path: '/wanted', element: <WantedListPage /> },
               { path: '/wanted/:id', element: <WantedDetailPage /> },
-              // Grand Line (CP4 / CP5): rutas ya protegidas, listas para implementar.
-              { path: '/news', element: <GrandLinePlaceholder title="News Coo" /> },
-              { path: '/news/:id', element: <GrandLinePlaceholder title="News Coo" /> },
-              { path: '/sagas', element: <GrandLinePlaceholder title="Poneglyph" /> },
-              { path: '/sagas/:id', element: <GrandLinePlaceholder title="Poneglyph" /> },
+              // Grand Line (requieren Log Pose en el servidor)
+              { path: '/news', element: <NewsFeedPage /> },
+              { path: '/news/:id', element: <NewsDetailPage /> },
+              { path: '/sagas', element: <SagasPage /> },
+              { path: '/sagas/:id', element: <SagaStoryPage /> },
             ],
           },
         ],

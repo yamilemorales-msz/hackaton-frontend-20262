@@ -42,13 +42,16 @@ export class ApiError extends Error {
   readonly code: string;
   /** Errores por campo (de `details`), p. ej. { email: "Formato inválido" }. */
   readonly fieldErrors: Record<string, string>;
+  /** Cuerpo completo del error (p. ej. `current` en 409 NEWS_ALREADY_VERIFIED). */
+  readonly body: unknown;
 
-  constructor(message: string, status: number, code: string, fieldErrors: Record<string, string> = {}) {
+  constructor(message: string, status: number, code: string, fieldErrors: Record<string, string> = {}, body: unknown = null) {
     super(message);
     this.name = 'ApiError';
     this.status = status;
     this.code = code;
     this.fieldErrors = fieldErrors;
+    this.body = body;
   }
 }
 
@@ -97,7 +100,7 @@ function buildApiError(status: number, body: unknown): ApiError {
     }
   }
 
-  return new ApiError(message, status, code, fieldErrors);
+  return new ApiError(message, status, code, fieldErrors, body);
 }
 
 // ---------- Manejo global de 401 ----------

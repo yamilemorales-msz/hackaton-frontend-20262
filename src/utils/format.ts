@@ -1,4 +1,4 @@
-import type { CrewRole, FruitFilter, WantedSort, WantedStatus } from '../types/api';
+import type { CrewRole, FruitFilter, NewsPriority, NewsStatus, NewsType, WantedSort, WantedStatus } from '../types/api';
 
 const numberFormatter = new Intl.NumberFormat('es-PE');
 const dateFormatter = new Intl.DateTimeFormat('es-PE', { dateStyle: 'medium', timeStyle: 'short' });
@@ -60,3 +60,37 @@ export const ROLE_LABELS: Record<CrewRole, string> = {
 export function labelFor<K extends string>(labels: Record<K, string>, value: string): string {
   return value in labels ? labels[value as K] : value;
 }
+
+export const NEWS_TYPE_LABELS: Record<NewsType, string> = {
+  BOUNTY_UPDATE: 'Recompensas',
+  BATTLE: 'Batalla',
+  MARINE_OPERATION: 'Operación de la Marina',
+  WORLD_GOVERNMENT: 'Gobierno Mundial',
+  DISCOVERY: 'Descubrimiento',
+};
+
+export const NEWS_PRIORITY_LABELS: Record<NewsPriority, string> = {
+  LOW: 'Baja',
+  MEDIUM: 'Media',
+  HIGH: 'Alta',
+  CRITICAL: 'Crítica',
+};
+
+export const NEWS_PRIORITY_CLASSES: Record<NewsPriority, string> = {
+  LOW: 'bg-parchment-200 text-ink-700',
+  MEDIUM: 'bg-parchment-300 text-ink-900',
+  HIGH: 'bg-seal-600/80 text-parchment-50',
+  CRITICAL: 'bg-seal-700 text-parchment-50',
+};
+
+export const NEWS_STATUS_LABELS: Record<NewsStatus, string> = {
+  RUMOR: 'Rumor',
+  CONFIRMED: 'Confirmada',
+  DEBUNKED: 'Desmentida',
+};
+
+export const NEWS_STATUS_CLASSES: Record<NewsStatus, string> = {
+  RUMOR: 'border-ink-500 text-ink-700 border-dashed',
+  CONFIRMED: 'border-sea-600 text-sea-700',
+  DEBUNKED: 'border-seal-600 text-seal-700 line-through',
+};

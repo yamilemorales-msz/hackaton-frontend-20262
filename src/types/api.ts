@@ -166,3 +166,90 @@ export interface LogPose {
   unlockedAt: string | null;
   message: string;
 }
+
+// ---------- Noticias (CP4) ----------
+export const NEWS_TYPES = ['BOUNTY_UPDATE', 'BATTLE', 'MARINE_OPERATION', 'WORLD_GOVERNMENT', 'DISCOVERY'] as const;
+export type NewsType = (typeof NEWS_TYPES)[number];
+
+export const NEWS_PRIORITIES = ['LOW', 'MEDIUM', 'HIGH', 'CRITICAL'] as const;
+export type NewsPriority = (typeof NEWS_PRIORITIES)[number];
+
+export const NEWS_STATUSES = ['RUMOR', 'CONFIRMED', 'DEBUNKED'] as const;
+export type NewsStatus = (typeof NEWS_STATUSES)[number];
+
+/** Estados a los que se puede verificar un RUMOR. */
+export type NewsVerification = 'CONFIRMED' | 'DEBUNKED';
+
+export interface NewsItem {
+  id: string;
+  type: NewsType;
+  priority: NewsPriority;
+  status: NewsStatus;
+  title: string;
+  summary: string;
+  source: string;
+  island: string;
+  relatedWanted: { id: string; name: string } | null;
+  publishedAt: string;
+  updatedAt: string;
+  verifiedAt: string | null;
+}
+
+export interface NewsDetail extends NewsItem {
+  body: string[];
+}
+
+export interface NewsFeed {
+  items: NewsItem[];
+  nextCursor: string | null;
+  hasMore: boolean;
+}
+
+// ---------- Sagas (CP5) ----------
+export interface Palette {
+  background: string;
+  surface: string;
+  primary: string;
+  accent: string;
+  text: string;
+}
+
+export interface SagaSummary {
+  id: string;
+  order: number;
+  title: string;
+  subtitle: string;
+  synopsis: string;
+  stageCount: number;
+  totalDistanceNm: number;
+  firstIsland: string;
+  lastIsland: string;
+  palette: Palette;
+}
+
+export type StageMetricKey = 'distanceNm' | 'crewMorale' | 'bountyPool' | 'marineThreat';
+
+export interface StageMetric {
+  key: StageMetricKey;
+  label: string;
+  value: number;
+  unit: string;
+}
+
+export interface SagaStage {
+  id: string;
+  order: number;
+  slug: string;
+  title: string;
+  narrative: string[];
+  island: { id: string; name: string; x: number; y: number };
+  palette: Palette;
+  metrics: StageMetric[];
+}
+
+export interface SagaStory {
+  saga: SagaSummary & { intro: string };
+  /** Sistema de coordenadas del mapa: viewBox="0 0 width height". */
+  map: { width: number; height: number };
+  stages: SagaStage[];
+}

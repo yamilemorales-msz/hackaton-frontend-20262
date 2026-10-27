@@ -15,13 +15,3 @@ export function NotFoundPage() {
     </div>
   );
 }
-
-/** Rutas del Grand Line (CP4 y CP5): protegidas, se implementan después del CP3. */
-export function GrandLinePlaceholder({ title }: { title: string }) {
-  return (
-    <div className="paper-card flex min-h-80 flex-col items-center justify-center gap-3 p-6 text-center">
-      <h1 className="font-display text-3xl">{title}</h1>
-      <p className="max-w-md text-ink-500">Esta sección del Grand Line se abre después de obtener el Log Pose (CP3).</p>
-    </div>
-  );
-}

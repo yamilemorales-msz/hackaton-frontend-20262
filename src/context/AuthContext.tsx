@@ -14,6 +14,7 @@ import { createContext, useCallback, useContext, useEffect, useMemo, useState, t
 import { ApiError, isAbortError, setUnauthorizedHandler, toApiError, tokenStorage } from '../api/client';
 import { getMe, loginRequest, registerRequest } from '../api/auth';
 import { clearApiCache } from '../hooks/useApi';
+import { clearNewsFeedCache } from '../hooks/useNewsFeed';
 import type { LoginRequest, RegisterRequest, Team, User } from '../types/api';
 
 export type AuthStatus = 'checking' | 'authenticated' | 'anonymous';
@@ -47,6 +48,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const clearSession = useCallback(() => {
     tokenStorage.clear();
     clearApiCache(); // no dejar datos del equipo anterior en memoria
+    clearNewsFeedCache();
     setSession(null);
     setRestoreError(null);
     setStatus('anonymous');
@@ -92,6 +94,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const login = useCallback(async (credentials: LoginRequest) => {
     const response = await loginRequest(credentials);
     clearApiCache();
+    clearNewsFeedCache();
     tokenStorage.set(response.token);
     setSession({ user: response.user, team: response.team });
     setRestoreError(null);
@@ -101,6 +104,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const register = useCallback(async (data: RegisterRequest) => {
     const response = await registerRequest(data);
     clearApiCache();
+    clearNewsFeedCache();
     tokenStorage.set(response.token);
     setSession({ user: response.user, team: response.team });
     setRestoreError(null);
